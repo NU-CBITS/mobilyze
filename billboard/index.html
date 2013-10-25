@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1.0, user-scalable=no" name="viewport">
+
+    <title></title>
+
+    <script src="js/helper/parse-query-string.js"></script>
+
+
+    <link rel="stylesheet" media="screen" href="../style/bootstrap/css/bootstrap.min.css">
+
+        <link rel="stylesheet" media="screen" href="../style/font-awesome/css/font-awesome.min.css">
+ <link rel="stylesheet" media="screen" href="../style/cbits.css">
+   <!--      <link rel="stylesheet" type="text/css" href="../holo/holo-base-elements.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-light-elements.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-base-widgets.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-light-widgets.css" />
+     -->
+
+
+  <script src="../js/vendor/jquery-2.0.3.min.js"></script>
+  <script src="../js/vendor/date.js"></script>
+  <script src="../js/vendor/lodash.min.js"></script>
+  <script src="../style/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../js/cbits.js"></script>
+
+    <!--app JS-->
+    <script src="js/app/content.js"></script>
+    <script src="js/app/app.js"></script><!-- User-generated css -->
+
+    <style>
+    body {text-align: center; font: "Droid Sans"; background-color: white !important;}
+
+/*    .bottom {bottom:10px; position: absolute;}
+*/    .pageNext,.pageBack, .chapterProgress,.currentSlideCount {display:none;}
+
+
+    .mainContent {text-align: left; padding:1.5em; font-size: 1.2em; line-height:1.4em; margin-top:0;}
+    .mainContent h1 { margin-bottom: .8em; font-size:1.7em;}
+    .mainContent li { margin-bottom: .5em}
+    .mainContent ul { margin-top:0;}
+
+    input[type=checkbox] {
+    /*padding-left:5px;
+    padding-right:5px;
+    border-radius:15px;
+    -webkit-appearance:button;
+
+    border: double 2px #00F;
+
+    background-color:#0b0095;
+    color:#FFF;
+    white-space: nowrap;
+    overflow:hidden;*/
+    width:40px;
+    height:40px;
+}
+
+    nav, .main_nav,.load-chapter,.navbar,.navbar-inner,.navbar-inner > .container {background-color:#813B81 !important; border:0 !important; background-image:none !important; margin-top:.5em; margin-bottom:.5em;}
+   
+
+    h1 {color:#813B81;}
+    h2 {color:#B988B9;}
+    h3 {color:#D8C0D8;}
+
+
+    .topRight{padding:1.5em; text-align: left;}
+    .topRight img{width:80%; margin-left:10%;margin-right:10%;}
+
+
+    .topRight {height:275px;}
+
+
+    .bottomRight{padding:1.5em; text-align: left;}
+    .bottomRight h1 {  font-size:1.7em;margin: 0;}
+
+    .btn-large {font-size: 1.8em;}
+    .load-chapter a {font-size:1.2em;}
+
+    .active  a {background-color:#B988B9 !important; font-weight:bold !important; }
+
+    a.image {background: url('images/icons/image.png') no-repeat left center;min-height: 40px; padding-left:55px; display: block;}
+    a.video {background: url('images/icons/video.png') no-repeat left center;min-height: 40px; padding-left:55px; display: block;}
+    a.graph {background: url('images/icons/graph.png') no-repeat left center;min-height: 40px; padding-left:55px; display:block; opacity: 1}
+    a.audio {background: url('images/icons/audio.png') no-repeat left center;min-height: 40px; padding-left:55px; display:block; opacity: 1}
+    a.audioImage {background: url('images/icons/audioImage.png') no-repeat left center;min-height: 40px; padding-left:55px; display:block; opacity: 1}
+
+     a {padding-top:10px;}
+
+    h1,h2,h3,h4,h5{margin:0 !important; line-height: 1em;}
+
+    .mainContent {padding-top:1em;}
+
+    .chapterProgressBar{background-color: #813B81 !important; height:10px;}
+    .tooltip{font-size:1.5em !important;}
+    .enabled h2 {color:purple;}
+
+    .icons {width:20%; vertical-align: top;}
+    .icons .load-lesson i {margin-right:.3em;}
+
+    .nav {width:80%; text-align:left; font-size:.8em;}
+
+
+
+    </style>
+
+    <script>
+    try {
+
+    $(function() {
+    console.log(app.status.todaysLessonHasBeenRead());
+        if (app.status.todaysLessonHasBeenRead() == true){
+            app.start.summary();
+        } else { 
+            app.start.lesson(app.content);
+        }
+            
+        
+
+    
+    });
+
+    } catch (error) {
+    console.error("Your javascript has an error: " + error);
+    }
+    </script>
+</head>
+
+<body>
+
+    <div class="row-fluid">
+        <div class="col-md-12 mainContent">
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div style="width:33%; float:left;">
+            <button class="pageBack btn-large"></button>
+        </div>
+
+        <div style="width:33%; float:left;">
+            <div class="currentSlideCount"></div>
+            <div class="progress progress-striped chapterProgress">
+                <div class="bar chapterProgressBar" ></div>
+            </div>
+        </div>
+
+        <div style="width:33%; float:left;">
+            <button class="pageNext btn-large"></button>
+        </div>
+    </div>
+</body>
+</html>

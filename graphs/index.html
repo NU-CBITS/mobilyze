@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Graphs</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" media="screen" href="../style/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" media="screen" href="../style/cbits.css">
+
+    <link rel="stylesheet" media="screen" href="../style/font-awesome/css/font-awesome.min.css">
+
+
+	<script src="../js/vendor/jquery-2.0.3.min.js"></script>
+  <script src="../js/vendor/date.js"></script>
+  <script src="../js/vendor/lodash.min.js"></script>
+	<script src="../style/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/cbits.js"></script>
+<script src="../js/vendor/highcharts/highcharts.js"></script>
+
+	<script type="text/javascript">
+
+    var last_7_days = {};
+    last_7_days.labels = [];
+    _.each([-6,-5,-4,-3,-2,-1,0],function(el){
+        last_7_days.labels.push(Date.today().add(el).day().toString('M/d'));
+    });
+
+
+    last_7_days.mood = [];
+    last_7_days.pleasure = [];
+    last_7_days.accomplishment = [];
+
+
+		$(document).ready(function() {
+
+
+    if (last_7_days.mood.length < 7 && last_7_days.pleasure.length < 7 && last_7_days.accomplishment.length < 7){
+
+        $("#alerts").html("<h3>You haven't logged enough yet!</h3><a href='../mobilyzepro/index.html' class='btn btn-primary'><i class='icon-question'></i> Get Tracking! </a>")
+
+    }
+   
+
+
+
+
+    $('#container1').highcharts({
+              credits: {
+      enabled: false
+  },  title: {
+                text: 'Mood Over Time',
+                x: -20 //center
+            },   
+            xAxis: {
+                categories: last_7_days
+            },
+            yAxis: {
+                min:0,
+                max:10,
+                title: {
+                    text: 'Mood'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Mood',
+                data: last_7_days.mood
+            }]
+        });
+
+        $('#container2').highcharts({
+              credits: {
+      enabled: false
+  },  
+    title: {
+                text: 'Average Pleasure and Accomplishment',
+                x: -20 //center
+            },
+      
+            xAxis: {
+                categories: [last_7_days]
+            },
+            yAxis: {min:0,
+                max:10,
+                title: {
+                    text: 'Pleasure and Accomplishment'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: ''
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: 'P',
+                data: last_7_days.pleasure
+            }, {
+                name: 'A',
+                data: last_7_days.accomplishment
+            
+              
+            }]
+        });
+    });
+    
+
+
+	</script>
+
+</head>
+
+
+<body>
+    <div id="row-fluid">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <h1><a href="../index.html"><i class="icon-home"></i></a> Graphs </h1>
+
+            <div id="alerts"></div>
+            <div id="container1" style="width:100%; height:350px;">
+            </div>
+            <br/><br/>
+            <div id="container2" style="width:100%; height:350px;">
+            </div>
+</div>
+        <div class="col-md-1"></div>
+</div>
+</body>
+
+</html>

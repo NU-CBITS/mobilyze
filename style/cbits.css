@@ -1,0 +1,68 @@
+/*html, body {
+	padding: 0;
+	margin: 0;
+  background-color:#FFFDFD;
+}*/
+
+
+/*.gray {
+  color: LightGray;
+}*/
+
+
+span.postResponse.none {
+  background: #FFFFFF;
+  color: #000000;
+}
+span.postResponse.noerror {
+  background: #556B2F;
+  color: #FFC613;
+}
+span.postResponse.error {
+  background: #B22924;
+  color: #FFFFFF;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.Assessment h1 {display:none;}
+.question > div.content { text-align: center !important;}
+
+.current_value {color:blue !important;}
+
+    .bg-themeA {background-color: #A13333 !important; color:white;}
+    .bg-themeB {background-color: #1e77AA !important;color:white;}
+    .bg-themeC {background-color: #7777CC !important;color:white;}
+    .bg-themeD {background-color: #99AABB !important;color:white;}
+    .bg-themeE {background-color: #661111 !important;color:white;}
+    .bg-themeF {background-color: #89abcd !important;color:white;}
+    .bg-themeG {background-color: #339933 !important;color:white;}
+    .bg-themeH {background-color: #0000FF !important;color:white;}
+/*
+    .themeA {color: #55c3dc;}
+    .themeB {color: #8c6429;}
+    .themeC {color: #e7f3ef;}
+    .themeD {color: #7e726D;}
+    .themeE {color: #e24b2c;}
+    .themeF {color: #FF0000;}
+    .themeG {color: #00FF00;}
+    .themeH {color: #0000FF;}*/
+
+  .widget{width:48%; float:left; margin-right:1%; margin-left:1%; height:150px;}
+  .widget h2 {font-size:1.3em; margin:0; margin-top:1em; line-height: 1.3em; color:white;}
+  .widget i {font-size:3.5em; display:block; height:60px; padding-top:15px;}
+
+
+  .hidden{display: none; opacity:0;}
+
+div.radio label.wide {padding-left:2.5em; padding-right:2em; margin-left:-1.5em; display:block;}
+
+.record {font-size:1.3em; position:relative;}
+
+div.active_coping.record {margin:.5em; padding:1em; background-color:#44AA44;border-radius: .25em; color:white; line-height: 1.2em}
+
+div.active_coping.record h1 {font-size:.6em;text-transform:uppercase; font-weight: bolder; margin:0;margin-top:.6em; color:black;}
+
+div.active_coping.record .timestamp {text-align:right; font-size:.8em; width:100%;font-style: italic;margin-top:-.5em;}

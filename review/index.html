@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Review</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" media="screen" href="../style/cbits.css">       
+	<link rel="stylesheet" media="screen" href="../style/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="../style/font-awesome/css/font-awesome.min.css">
+<!-- 	 <link rel="stylesheet" type="text/css" href="../holo/holo-base-elements.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-light-elements.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-base-widgets.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-light-widgets.css" /> -->
+<!--     <link rel="stylesheet" media="screen" href="../js/vendor/tourist.css">
+	<link rel="stylesheet" media="screen" href="../js/vendor/jquery.qtip.min.css">
+ -->
+
+	<style>
+		label, span {
+			padding-top: 10px;
+		}
+	</style>
+
+
+	<script src="../js/vendor/jquery-2.0.3.min.js"></script>
+	<script src="../js/vendor/date.js"></script>
+	<script src="../js/vendor/lodash.min.js"></script>
+	<script src="../style/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/vendor/md5.js"></script>
+	<script src="../js/pound.js"></script>
+	<script src="../js/cbits.js"></script>
+	<script src="../js/forms.js"></script>
+
+	<script type="text/javascript">
+
+		/**
+		 * On: Page-load.
+		 * @return {[type]} [description]
+		 */
+		// $(document).ready(function() {
+  // STEPS = [{
+  //   content: 'The Active Coping tool walks you through some steps to identify avoidance and to create a more useful coping response',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#lessons-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{ 
+  // 	content: 'The first step is noticing an example of avoidance. This can be hard at first, but if you think about it you usually know when there is something you need to be doing,
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#calendar-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'The next step is being specific about what you are avoiding. Is it a task, a feeling, a person. What is it that makes what you are avoiding so bad?',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#traptrac-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'Then, it's helpful to note what you did instead. Like watching TV instead of doing the laundry',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#copingcard-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'If this activity is already on your Activity Tracker you can indicate that here to provide more information about the activity',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#checkin-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'What was the result of your avoidance? Think about both the short-term and long-term consequences. Sometimes avoidance helps in the short-term but makes things worse in the long-term',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#oracle-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  // 	 content: 'Lastly, what could you do differently. What would be a response that would deal with the issue more directly?',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#oracle-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  // 	 content: 'When you have finished all these steps. Click submit to save your information',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#oracle-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'Labs',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#labs'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'Tour',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#replay-tour'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // }]
+
+  // TOUR = new Tourist.Tour({
+  //   // stepOptions: STEP_OPTIONS,
+  //   steps: STEPS,
+  //   //cancelStep: @finalQuit
+  //   //successStep: @finalSucceed
+  //   tipClass: 'QTip',
+  //   tipOptions:{
+  //     style: {
+  //       classes: 'qtip-tour qtip-bootstrap'
+  //     }
+  //   }
+  // });
+  // TOUR.start();
+
+  // $("#replay-tour").on("click", function(ev){TOUR.start();});
+			
+  	var tableReviewers = {};
+  	tableReviewers.collections = [];
+
+  	tableReviewers.definitionAssets = function(selectCriteria){
+		return _.where(user.sub.apps,selectCriteria)[0]; 
+  	};
+
+  	tableReviewers.views = {};
+  	tableReviewers.views.mainView = function(data_to_report){
+
+	  	var view = "";
+	  	var buildDataArray = [];
+	  		_.each(data_to_report, function(el){
+
+	  			var collection = pound.find(el);
+	  			_.each(collection, function(el2){
+	  				buildDataArray.push({type:el,contents:el2});
+	  			});
+	  		});
+
+
+  		_.each(buildDataArray, function(el){
+  			var viewTemplate = _.where(tableReviewers.views.viewCollection,{id:el.type})[0].template;
+  			// view += '<i class="' '"></i>';
+  			view += viewTemplate(el.contents);
+		});
+
+  	return view
+
+  	};
+
+  	tableReviewers.views.viewCollection = [];
+  	tableReviewers.views.viewCollection[0]= {
+  		id:"active_coping",
+  		selectCriteria:{name:"Active Coping"},
+		template: function(record){
+
+
+			var view = "";
+			var activity = record.activity || "No activity entered";
+			var activityAlternate = record.activityAlternate || "";
+			var activityConsequences = record.activityConsequences || "";
+			var activityReplacementActivity = record.activityReplacementActivity || "";
+			var timestamp = record.timestamp || "";
+
+			if (timestamp != ""){
+			var timestamp_cleaned = timestamp.substring(0,10) + " " + timestamp.substring(12,19)
+			view += '<div class="timestamp">'+ timestamp_cleaned +'</div>';
+			}
+			
+
+			view += '<h1>You avoided</h1><div class="activity">' + activity + "</div>";
+			view += '<h1>Instead you</h1><div class="activity-replacement-activity"> ' + activityReplacementActivity + '</div>';
+
+			view += '<h1>As a result</h1><div class="activity-consequences"> ' + activityConsequences+ '</div>';
+			view += '<h1>Instead you could</h1><div class="activity-alternate"> ' + activityAlternate+ '</div>';
+			
+
+			
+			
+			return '<div class="active_coping record">' + view + '</div>'
+
+		},
+		actions: function(){}
+  	};
+ 
+
+	var tableReviewer = {};
+
+
+
+
+
+
+
+	page = {};
+	page.selectCriteria= {name:"Review"};	
+	page.container = '#main-container';
+
+	page.main = {};
+
+	page.main.contents = [];
+
+	page.main.contents[0] = "<h1><a href='../index.html'><i class='icon-home'></i></a> " + _.where(user.sub.apps, page.selectCriteria)[0].name + "</h1>";
+	page.main.contents[1] = {type:"tableReviewers",contents:["active_coping"]};
+
+
+	page.main.build =function(contents,div){
+
+		_.each(contents, function(el){
+
+			switch (el.type){
+
+				case "form":
+				$(div).append(forms.views.mainView(el.contents));
+				el.contents.actions();
+				break;
+				case "tableReviewers":
+				$(div).append(tableReviewers.views.mainView(el.contents));
+				// el.contents.actions();
+				break;
+				default:
+				if(typeof(el.contents) == "string"){$(div).append(el.contents);}else{$(div).append(el);}
+				if (typeof(el.actions) == "function"){el.actions();}
+				break;
+
+			}
+
+
+		});
+
+	};
+	
+
+$(document).ready(function() {
+
+
+	page.main.build(page.main.contents,page.container);
+
+});
+
+
+	</script>
+
+</head>
+
+
+<body class='phone'>
+<div class="row-fluid">
+
+  <div class="col-md-1"></div>
+  <div class="col-md-10" id="main-container"></div>
+  <div class="col-md-1"></div>
+</div>
+
+
+</div>
+</body>
+
+</html>

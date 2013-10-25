@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Active Coping</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" media="screen" href="../style/cbits.css">       
+	<link rel="stylesheet" media="screen" href="../style/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="../style/font-awesome/css/font-awesome.min.css">
+<!-- 	 <link rel="stylesheet" type="text/css" href="../holo/holo-base-elements.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-light-elements.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-base-widgets.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-light-widgets.css" /> -->
+<!--     <link rel="stylesheet" media="screen" href="../js/vendor/tourist.css">
+	<link rel="stylesheet" media="screen" href="../js/vendor/jquery.qtip.min.css">
+ -->
+
+	<style>
+		label, span {
+			padding-top: 10px;
+		}
+	</style>
+
+
+	<script src="../js/vendor/jquery-2.0.3.min.js"></script>
+	<script src="../js/vendor/date.js"></script>
+	<script src="../js/vendor/lodash.min.js"></script>
+	<script src="../style/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/vendor/md5.js"></script>
+	<script src="../js/pound.js"></script>
+	<script src="../js/cbits.js"></script>
+	<script src="../js/forms.js"></script>
+
+	<script type="text/javascript">
+
+		/**
+		 * On: Page-load.
+		 * @return {[type]} [description]
+		 */
+		// $(document).ready(function() {
+  // STEPS = [{
+  //   content: 'The Active Coping tool walks you through some steps to identify avoidance and to create a more useful coping response',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#lessons-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{ 
+  // 	content: 'The first step is noticing an example of avoidance. This can be hard at first, but if you think about it you usually know when there is something you need to be doing,
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#calendar-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'The next step is being specific about what you are avoiding. Is it a task, a feeling, a person. What is it that makes what you are avoiding so bad?',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#traptrac-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'Then, it's helpful to note what you did instead. Like watching TV instead of doing the laundry',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#copingcard-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'If this activity is already on your Activity Tracker you can indicate that here to provide more information about the activity',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#checkin-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'What was the result of your avoidance? Think about both the short-term and long-term consequences. Sometimes avoidance helps in the short-term but makes things worse in the long-term',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#oracle-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  // 	 content: 'Lastly, what could you do differently. What would be a response that would deal with the issue more directly?',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#oracle-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  // 	 content: 'When you have finished all these steps. Click submit to save your information',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#oracle-widget'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'Labs',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#labs'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // },{
+  //   content: 'Tour',
+  //   highlightTarget: false,
+  //   nextButton: true,
+  //   target: $('#replay-tour'),
+  //   my: 'top center',
+  //   at: 'top center'
+  // }]
+
+  // TOUR = new Tourist.Tour({
+  //   // stepOptions: STEP_OPTIONS,
+  //   steps: STEPS,
+  //   //cancelStep: @finalQuit
+  //   //successStep: @finalSucceed
+  //   tipClass: 'QTip',
+  //   tipOptions:{
+  //     style: {
+  //       classes: 'qtip-tour qtip-bootstrap'
+  //     }
+  //   }
+  // });
+  // TOUR.start();
+
+  // $("#replay-tour").on("click", function(ev){TOUR.start();});
+			
+
+
+	form = {};
+
+	form.placeholderDefinitions = function(){};
+	form.name = "Active Coping";
+	form.use_cases = [];
+
+	
+
+
+
+	form = {};
+	form.id = "active_coping";
+	form.name = "Active Coping";
+	form.elements = [];
+	form.submit = {label:"Save and Goto Review <i class='icon-info-sign'></i>", classes:"ac_part1 btn btn-primary",visible:false};
+	form.elements[0] = {orderer:0, data_toggle:"buttons",content:"Have you done anything today that was an example of avoidance, procrastination, or escapism?",classes:"", question_type:"radio",data_label:"userAvoidedYesNo", responses:[{label:"Yes",value:"yes",checked:false, classes:"btn btn-success radio-inline wide"},{label:"No", value:"no", checked:false,  classes:"btn btn-danger radio-inline wide"}] };
+	form.elements[1] = {orderer:1, content:"What did you avoid?", question_type:"textarea",data_label:"activity",placeholder:"Enter what you avoided. For example, it could be a chore, work task, school work, or important conversation.",classes:"ac_part1", visible:false};
+	form.elements[2] = {orderer:2, content:"What did you do instead?", question_type:"textarea",data_label:"activityReplacementActivity",placeholder:"Enter what you avoided. For example, it could be a chore, work task, school work, or important conversation.",classes:"ac_part1", visible:false};
+	form.elements[3] = {orderer:3, content:"What were the consequences?", question_type:"textarea",data_label:"activityConsequences",placeholder:"Enter what happened as a result of your avoidance. Did the task or problem get bigger?",classes:"ac_part1", visible:false};
+	form.elements[4] = {orderer:4, content:"What could you do differently?", question_type:"textarea",data_label:"activityAlternate",placeholder:"Come up with an alternative coping response that would be more active and help deal with the task or problem.",classes:"ac_part1", visible:false};
+	form.submit = {label:"Save and Goto Review <i class='icon-info-sign'></i>", classes:"ac_part1 btn btn-primary",visible:false};
+
+	form.actions = function(){
+
+		$("input[name='userAvoidedYesNo'][value='yes']").on("click",function(){
+			$(".hide.ac_part1").removeClass("hide");
+			$(".no_avoidance").addClass("hide");
+			$("#fun_today .form-group").addClass("hide");
+			$("#fun_today button.btn-primary").addClass("hide");
+			$(".no_add").addClass("hide");
+		});
+		$("input[name='userAvoidedYesNo'][value='no']").on("click",function(){
+			$(".ac_part1").addClass("hide");
+			$(".no_avoidance").removeClass("hide");
+			$("#fun_today .hide.form-group").removeClass("hide");
+			$(".no_add").addClass("hide");
+		});
+		$("form#active_coping").on("submit",function(ev){
+		//save the coping card
+			ev.preventDefault();
+			pound.add("active_coping",$(this).serializeObject());
+			window.location.href="../review/index.html";
+		});
+
+	};
+
+	form2 = {};
+	form2.id = "fun_today";
+	form2.name = "Do anything fun?";
+	form2.elements = [];
+	form2.submit = {label:"Excellent! Add it to the Activity Calendar <i class='icon-calendar'></i>", classes:"btn btn-primary hide",visible:false};
+	form2.elements[0] = {orderer:0, data_toggle:"buttons",content:"",classes:"hide", question_type:"radio",data_label:"doneAnythingFunTodayYesNo", responses:[{label:"Yes",value:"yes",checked:false, classes:"btn btn-success wide"},{label:"No", value:"no", checked:false,  classes:"btn btn-danger wide"}] };
+	form2.actions = function(){
+		$("input[name='doneAnythingFunTodayYesNo'][value='yes']").on("click",function(){
+			$("#fun_today button.btn-primary").removeClass("hide");
+			$(".no_add").addClass("hide");
+		});
+		$("input[name='doneAnythingFunTodayYesNo'][value='no']").on("click",function(){
+			$("#fun_today button.btn-primary").addClass("hide");
+			$(".no_add.hide").removeClass("hide");
+
+		});
+		$("form#fun_today").on("submit",function(ev){
+			ev.preventDefault();
+			window.location.href="../calendar/index.html";
+			pound.nuke("alert");
+			pound.add("alert",{type:"Activity Calendar", action:function(){console.log("log activity");}})
+		})
+	};
+
+
+	forms.collections = [];
+	forms.collections[0] = form;
+	forms.collections[1] = form2;
+
+	buttons = {};
+	buttons.collections = [];
+
+
+	buttons.collections[0] = {
+
+	};
+
+
+
+	page = {};
+	page.selectCriteria= {name:"Active Coping"};	
+	page.container = '#main-container';
+
+	page.main = {};
+
+	page.main.contents = [];
+
+	page.main.contents[0] = "<h1><a href='../index.html'><i class='icon-home'></i></a> " + _.where(user.sub.apps, page.selectCriteria)[0].name + "</h1>";
+	page.main.contents[1] = {type:"form", contents: _.where(forms.collections, page.selectCriteria)[0]};
+	page.main.contents[2] = {type:"html", contents:"<h3 class='no_avoidance hide'>That's great!<br/> Done anything fun today?</h3>"};
+	page.main.contents[3] = {type:"form", contents: _.where(forms.collections, {id:"fun_today"})[0]};
+	page.main.contents[4] = {type:"html", contents:"<h3 class='no_add hide'>Ok, tell us how you're doing...</h3><a class='no_add hide btn btn-primary' href='../mobilyzepro/index.html'>Check-In With Us <i class='icon-question'></i></a>"};
+
+	page.main.build =function(contents,div){
+
+		_.each(contents, function(el){
+
+			switch (el.type){
+
+				case "form":
+				$(div).append(forms.views.mainView(el.contents));
+				el.contents.actions();
+				break;
+				default:
+				if(typeof(el.contents) == "string"){$(div).append(el.contents);}else{$(div).append(el);}
+				if (typeof(el.actions) == "function"){el.actions();}
+				break;
+
+			}
+
+
+		});
+
+	};
+	
+
+$(document).ready(function() {
+
+
+	page.main.build(page.main.contents,page.container);
+
+});
+
+
+	</script>
+
+</head>
+
+
+<body class='phone'>
+<div class="row-fluid">
+
+  <div class="col-md-1"></div>
+  <div class="col-md-10" id="main-container"></div>
+  <div class="col-md-1"></div>
+</div>
+
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>View Coping Card</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" media="screen" href="../style/bootstrap/css/bootstrap.min.css">
+		    <link rel="stylesheet" type="text/css" href="../holo/holo-base-elements.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-light-elements.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-base-widgets.css" />
+    <link rel="stylesheet" type="text/css" href="../holo/holo-light-widgets.css" />
+    	<link rel="stylesheet" media="screen" href="../style/font-awesome/css/font-awesome.min.css">
+	    	<link rel="stylesheet" media="screen" href="../js/vendor/tourist.css">
+		<link rel="stylesheet" media="screen" href="../js/vendor/jquery.qtip.min.css">
+
+
+	<script src="../js/vendor/jquery-2.0.3.min.js"></script>
+  <script src="../js/vendor/date.js"></script>
+  <script src="../js/vendor/lodash.min.js"></script>
+	<script src="../js/vendor/async.js"></script>
+	<script src="../style/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../js/cbits.js"></script>
+	<script src="../js/vendor/backbone-min.js"></script>
+	<script src="../js/vendor/tourist.min.js"></script>
+		<script src="../js/vendor/jquery.qtip.min.js"></script>
+
+	<script type="text/javascript">
+
+		var getSelectedCardJQelem = function() { return $("#existingCopingCardNotifications :selected"); };
+
+		var getTriggerRespObjById = function(triggerId) {
+			return _.find(allTriggers, function(triggerRespObj) { return triggerRespObj.payload.identifier == triggerId; });
+		};
+
+		var displayMsgText = function(msgText) {
+			$("#evtDesc").text(msgText);
+		};
+
+		var displaySchedule = function(triggerRespObj) {
+			var scheduledDateTimeICal = triggerRespObj.payload.datetime_start;
+			var scheduledDateTime = iCalToDate(scheduledDateTimeICal);
+
+      $("#evtDate").val(scheduledDateTime.toString('yyyy-MM-dd'));
+      $("#evtTime").val(scheduledDateTime.toString('HH:mm'));
+		};
+
+		var extractMsgFromTriggerAction = function(triggerRespObj) {
+			console.log('triggerRespObj.payload.action = ', triggerRespObj.payload.action);
+			var msg = (((triggerRespObj.payload.action.replace(/\);.*$/, '')).replace(/PurpleRobot\.showNativeDialog\(/, '')).replace(/^.*?,/, '')).replace(/([^\\]*?\".*?[^\\]\"),\".*$/, '$1');
+			msg = msg.slice(1, (msg.length - 1));
+			console.log('msg = ', msg);
+			return msg;
+		};
+
+		/**
+		 * Displays a trigger.
+		 * @param  {[type]} triggerRespObj [description]
+		 * @return {[type]}                [description]
+		 */
+		var displaySelectedTrigger = function() {
+			var id = (getSelectedCardJQelem()).attr('rel');
+			// console.log("id = ", id);
+			var triggerRespObj = getTriggerRespObjById(id);
+			// console.log("triggerRespObj = ", triggerRespObj);
+			var msg = extractMsgFromTriggerAction(triggerRespObj);
+			// console.log("msg = ", msg);
+			displayMsgText(msg);
+
+			// display the schedule values
+			displaySchedule(triggerRespObj);
+		};
+
+
+
+		// for life of page-load, store the set of triggers retrieved on-page-load.
+		var allTriggers = [];
+	
+
+		$(document).ready(function() {
+
+	/**
+			 * On Create a card.
+			 * @param  {[type]} ) {            window.location.href = 'copingCardCreate.html'; });						$("[name='deleteThisCard']").click(function( [description]
+			 * @return {[type]}   [description]
+			 */
+			$("#create").on("click",function() {
+				window.location.href = 'copingCardCreate.html';
+			});
+
+
+
+  STEPS = [{
+    content: 'For "Lunch with Co-Workers" rate your level of pleasure:<Br/><img src="slider.jpg">',
+    highlightTarget: false,
+    nextButton: true,
+    target: $('#existingCopingCardNotifications'),
+    my: 'top center',
+    at: 'top center'
+  },{ 
+  	content: 'Click this button to save your coping card',
+    highlightTarget: false,
+    nextButton: true,
+    target: $('#create'),
+    my: 'top center',
+    at: 'top center'
+  },{
+    content: 'Click this button to delete your coping card',
+    highlightTarget: false,
+    nextButton: true,
+    target: $('#delete'),
+    my: 'top center',
+    at: 'top center'
+  },{
+    content: 'You can schedule when you want your coping card send to you. Pick a time when you know you will need it and Mobilyze will make sure you get it',
+    highlightTarget: false,
+    nextButton: true,
+    target: $('#time'),
+    my: 'top center',
+    at: 'top center'
+  },{
+    content: 'Coping cards are short sentences of some of your coping skills that you can use when you encounter a stressful or difficult situation. This is really helpful when you know something will be difficult and you want to give yourself a reminder to use your skills in that situation',
+    highlightTarget: false,
+    nextButton: true,
+    target: $('#content'),
+    my: 'top center',
+    at: 'top center'
+  }];
+
+  TOUR = new Tourist.Tour({
+    // stepOptions: STEP_OPTIONS,
+    steps: STEPS,
+    //cancelStep: @finalQuit
+    //successStep: @finalSucceed
+    tipClass: 'QTip',
+    tipOptions:{
+      style: {
+        classes: 'qtip-tour qtip-bootstrap'
+      }
+    }
+  });
+
+
+    	if(localStorage["cc_tour_played"] != "true" ){
+
+		localStorage["cc_tour_played"] = true;
+  TOUR.start();
+
+
+	}
+
+  $("#replay-tour").on("click", function(ev){TOUR.start();});
+			// First, fetch all the trigger IDs.
+			var postObj = { "json": JSON.stringify({ "command": "execute_script", "script": "PurpleRobot.fetchTriggerIds();" }) };
+			console.log('postObj = ', postObj);
+			$.post(prJsonSubmitUrl, postObj)
+				.done(
+					function(triggersResData) {
+					console.log(triggersResData);
+
+					var existingCopingCardNotifications = [];
+
+					// Then, for each trigger ID returned in the list...
+					async.concat(triggersResData.payload,
+						
+						// ...process each trigger ID by...
+						function(triggerId, callback) {
+							var postObj = { "json": JSON.stringify({ "command": "execute_script", "script": "PurpleRobot.fetchTrigger('" + triggerId + "');" }) };
+							console.log('postObj = ', postObj);
+			
+							var trigger = null;
+							// ...requesting the trigger object...
+							$.post(prJsonSubmitUrl, postObj)
+								.done(
+									// ...and sending it to the async.concat function to concatenate it to a new array.
+									function(triggerResData) {
+										console.log("triggerResData = ", triggerResData);
+										callback(null, triggerResData);
+									}
+								);
+						},
+
+						// ...process the results of the concatenation by...
+						function(err, results) {
+							console.log('async.concat: results = ', results);
+
+							// ...looping-over the concatenated trigger response objects...
+							results.forEach(function(triggerResData){
+								// fill the set of triggers for reference elsewhere.
+								allTriggers.push(triggerResData);
+
+								// ...and appending the trigger's ID and name to the list of triggers.
+								$("#existingCopingCardNotifications")
+									.append(
+										"<option rel='" + triggerResData.payload.identifier + "' value='" + triggerResData.payload.name + "'" + ">" + triggerResData.payload.name + "</option>"
+									);
+							});
+
+							// display the contents of the selected card.
+							displaySelectedTrigger();
+						}
+					);
+
+				});
+
+			
+			/**
+			 * On card-selection drop-down change.
+			 * @return {[type]} [description]
+			 */
+			$("#existingCopingCardNotifications").change(function() {
+				displaySelectedTrigger();
+			});
+
+
+		
+
+			/**
+			 * On Delete a card.
+			 * @return {[type]} [description]
+			 */
+			$("[name='deleteThisCard']").click(function() {
+				var jqElemOfDeletable = getSelectedCardJQelem;
+				var id = $(jqElemOfDeletable).attr('rel');
+				var name = $(jqElemOfDeletable).val();
+				var confirmationResponse = confirm("Are you sure you want to delete \"" + name + "\"");
+				
+				// if user confirms their deletion request...
+				if(confirmationResponse) {
+					console.log("Deleting: " + id);
+					// generate the deletion operation
+					var postObj = { "json": JSON.stringify({ "command": "execute_script", "script": "PurpleRobot.deleteTrigger('" + id + "');" }) };
+					$.post(prJsonSubmitUrl, postObj)
+						.done(function(resData) {
+							// on deletion-submission-response, if the response is OK, then remove the element from the dropdown list
+							console.log('Deletion completed; response: ', resData);
+							if(resData.status == 'ok') {
+								$(jqElemOfDeletable).remove();
+							}
+						});
+				}
+			});
+
+		});
+
+	</script>
+</head>
+
+
+<body>
+	<div class="row-fluid">
+		<div class="span1"></div>
+
+		<div class="span10">
+			<h3 class="b1">View Coping Card</h3>
+			<button id="replay-tour">Replay Tour  <i class="icon-play"></i></button>
+			<form id="edit-event" class="form-horizontal widget-content form-condensed" name="edit-event">
+				<select id="existingCopingCardNotifications" name="existingCopingCardNotifications"><option>Getting angry with my friend Janice</option><option>Whenever I walk past dunkin donuts</option></select><br /><br />
+				<input class="span4 btn" name="createACard" type="button" value="Create a card" id="create"/><input class="span4 btn" name="deleteThisCard" type="button" value="Delete this card" id="delete" /><br />
+				<textarea id="evtDesc" name="evtDesc" rows="4" cols="50" class="span12" readonly placeholder="Select a card you've already created to view it" ></textarea><br />
+				<br />
+				schedule: <input id="evtDate" name="evtDate" type="date" class="span12" readonly="readonly" /><input id="evtTime" name="evtTime" type="time" class="span12" readonly="readonly" /><br />
+
+
+			</form>
+		</div>
+	
+		<div class="span1"></div>
+
+	</div>
+</body>
+
+</html>
