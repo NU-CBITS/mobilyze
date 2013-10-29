@@ -155,7 +155,13 @@
   			view += viewTemplate(el.contents);
 		});
 
-  	return view
+    if(buildDataArray.length > 0){
+  	return view}
+    else{
+
+      return "<div class='alert alert-info'><b>We're sorry!</b><br/>You haven't yet used Mobilyze tools--but we KNOW you want to... or why else would you be here?</div><a href='../index.html' class='btn btn-primary'><i class='icon-home'></i> Visit the Home Screen and Try Something Else</a>"
+
+    }
 
   	};
 

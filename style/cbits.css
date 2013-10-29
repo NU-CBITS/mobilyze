@@ -10,7 +10,7 @@
 }*/
 
 
-span.postResponse.none {
+/*span.postResponse.none {
   background: #FFFFFF;
   color: #000000;
 }
@@ -21,7 +21,7 @@ span.postResponse.noerror {
 span.postResponse.error {
   background: #B22924;
   color: #FFFFFF;
-}
+}*/
 
 .bold {
   font-weight: bold;
@@ -50,14 +50,18 @@ span.postResponse.error {
     .themeG {color: #00FF00;}
     .themeH {color: #0000FF;}*/
 
-  .widget{width:48%; float:left; margin-right:1%; margin-left:1%; height:150px;}
-  .widget h2 {font-size:1.3em; margin:0; margin-top:1em; line-height: 1.3em; color:white;}
-  .widget i {font-size:3.5em; display:block; height:60px; padding-top:15px;}
+  .widget{width:48%; float:left; margin-right:1%; margin-left:1%; height:150px;  display:block;}
+  .widget h2 {font-size:1.2em; margin:0; margin-top:.5em; line-height: 1.3em; color:white;}
+  .widget i {font-size:3.5em; display:block; height:50px; padding-top:5px;}
 
+
+
+div#widget-menu {margin-bottom:1.5em;}
 
   .hidden{display: none; opacity:0;}
 
 div.radio label.wide {padding-left:2.5em; padding-right:2em; margin-left:-1.5em; display:block;}
+
 
 .record {font-size:1.3em; position:relative;}
 
@@ -66,3 +70,42 @@ div.active_coping.record {margin:.5em; padding:1em; background-color:#44AA44;bor
 div.active_coping.record h1 {font-size:.6em;text-transform:uppercase; font-weight: bolder; margin:0;margin-top:.6em; color:black;}
 
 div.active_coping.record .timestamp {text-align:right; font-size:.8em; width:100%;font-style: italic;margin-top:-.5em;}
+
+div.coping_card.record {margin:.5em; padding:1em; background-color:#88AA88;border-radius: .25em; color:white; line-height: 1.2em}
+
+div.coping_card.record h1 {font-size:.6em;text-transform:uppercase; font-weight: bolder; margin:0;margin-top:.6em; color:black;}
+
+div.coping_card.record .timestamp {text-align:right; font-size:.8em; width:100%;font-style: italic;margin-top:-.5em;}
+
+
+
+/*form#event_form table {width:100%;}
+*/
+form#event_form table .ends {padding-right:1em;}
+form#event_form table .middle {padding-right:1em;}
+
+
+
+/*
+ * SimpleModal Basic Modal Dialog
+ * http://simplemodal.com
+ *
+ * Copyright (c) 2013 Eric Martin - http://ericmmartin.com
+ *
+ * Licensed under the MIT license:
+ *   http://www.opensource.org/licenses/mit-license.php
+ */
+
+/* Overlay */
+#simplemodal-overlay {background-color:#000;}
+
+/* Container */
+#simplemodal-container {height:360px !important; width:90%!important; color:#EEE; background-color:#222; border:4px solid #444; padding:12px;}
+#simplemodal-container .simplemodal-data {padding:8px;}
+#simplemodal-container code {background:#141414; border-left:3px solid #65B43D; color:#bbb; display:block; font-size:12px; margin-bottom:12px; padding:4px 6px 6px;}
+#simplemodal-container a {color:#ddd;}
+#simplemodal-container a.modalCloseImg {background:url(../images/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-16px; cursor:pointer;}
+#simplemodal-container h3 {color:#84b8d9;}
+
+
+

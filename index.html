@@ -3,11 +3,12 @@
 	<head>
 	<title>Mobilyze</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" media="screen" href="style/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" media="screen" href="style/cbits.css">
 	<link rel="stylesheet" media="screen" href="style/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" media="screen" href="js/vendor/tourist.css">
 	<link rel="stylesheet" media="screen" href="js/vendor/jquery.qtip.min.css">
+    <link rel="stylesheet" media="screen" href="style/bootstrap/css/bootstrap.min.css">
+
 <!-- 	<link rel="stylesheet" type="text/css" href="holo/holo-base-elements.css" />
 	<link rel="stylesheet" type="text/css" href="holo/holo-light-elements.css" />
 	<link rel="stylesheet" type="text/css" href="holo/holo-base-widgets.css" />
@@ -29,25 +30,31 @@
 	<script src="js/vendor/tourist.min.js"></script>
 	<script src="js/vendor/jquery.qtip.min.js"></script>
 	<script src="js/cbits.js"></script>
-	<script>
+    <script src="js/onAppStartOrResume.js"></script>
 
+	<script>
+  var logo_height = 140; //80 tall + 10 padding
+  var widget_margin_bottom = 10;
+
+  
 	$(document).ready(function(){
 
-    var mainContainer = $("#main-container");
-    
-   mainContainer.html(user.sub.widget.menu.view(user.sub.apps));
-   user.sub.widget.menu.actions(user.sub.apps);
+  var mainContainer = $("#main-container");  
+  mainContainer.html(user.sub.widget.menu.view(user.sub.apps));
+  user.sub.widget.menu.actions(user.sub.apps);
+
+  var num_widgets_tall = _.where(user.sub.apps, {visible:true}).length/2;
+  var height_of_widget_nav = $(document).height()-logo_height;
+  $(".widget").css("marginBottom",widget_margin_bottom);
+  $(".widget").height((height_of_widget_nav - (widget_margin_bottom*num_widgets_tall*2.5))/num_widgets_tall);
+
+	// if(localStorage["intro_animation_played"] != "true" ){
+
+	// 	localStorage["intro_animation_played"] = true;
+	// 	window.location.href = "intro/index.html";
 
 
-
-
-	if(localStorage["intro_animation_played"] != "true" ){
-
-		localStorage["intro_animation_played"] = true;
-		window.location.href = "intro/index.html";
-
-
-	}
+	// }
 
   // STEP_OPTIONS = {
   //   one: 1,
@@ -145,7 +152,7 @@
 	</head>
 
 	<body>
-<img src="logo.png" id="main-logo" style="width:60%; padding-top:10px;">
+<img src="logo.png" id="main-logo" style="height:80px; padding-top:10px;">
 <div id="main-container">
 
 </div>

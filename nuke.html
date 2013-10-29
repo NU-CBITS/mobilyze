@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Mobilyze</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" media="screen" href="style/cbits.css">
+	<link rel="stylesheet" media="screen" href="style/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" media="screen" href="js/vendor/tourist.css">
+	<link rel="stylesheet" media="screen" href="js/vendor/jquery.qtip.min.css">
+    <link rel="stylesheet" media="screen" href="style/bootstrap/css/bootstrap.min.css">
+
+<!-- 	<link rel="stylesheet" type="text/css" href="holo/holo-base-elements.css" />
+	<link rel="stylesheet" type="text/css" href="holo/holo-light-elements.css" />
+	<link rel="stylesheet" type="text/css" href="holo/holo-base-widgets.css" />
+	<link rel="stylesheet" type="text/css" href="holo/holo-light-widgets.css" /> -->
+	<style>
+  html, body{text-align: center;padding:0;margin:0;}
+  #main-container{width:95%;margin-left:auto; margin-right:auto;}
+
+</style>
+	<script src="js/vendor/jquery-2.0.3.min.js"></script>
+	<script src="js/vendor/date.js"></script>
+	<script src="js/vendor/lodash.min.js"></script>
+	<script src="style/bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/vendor/md5.js"></script>
+	<script src="js/vendor/jquery-ui.min.js"></script>
+	<!--<script src="js/vendor/imagesloaded.min.js"></script>-->
+
+	<script src="js/vendor/backbone-min.js"></script>
+	<script src="js/vendor/tourist.min.js"></script>
+	<script src="js/vendor/jquery.qtip.min.js"></script>
+	<script src="js/cbits.js"></script>
+    <script src="js/onAppStartOrResume.js"></script>
+
+	<script>
+  var logo_height = 140; //80 tall + 10 padding
+  var widget_margin_bottom = 10;
+
+  
+	$(document).ready(function(){
+
+    $("#reset").on("click",function(){localStorage.clear();$(".reset").append("<Br/><Br/><div class='alert alert-success'><b>All data has been cleared.</b></div")});
+
+});
+	</script>
+	</head>
+
+	<body>
+<img src="logo.png" id="main-logo" style="height:80px; padding-top:10px;">
+<div class="row-fluid">
+  <div class="col-md-1"></div>
+ <div class="col-md-10 reset" ><h1>Reset Application</h1>
+
+<div class="alert alert-warning">Pressing the button below will remove all Mobilyze application data and refresh your configuration.</div>
+
+<button id="reset" class="btn btn-danger">Reset All App Data</button></div>
+ <div class="col-md-1"></div>
+ </div>
+
+
+
+</body>
+</html>
