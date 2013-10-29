@@ -259,8 +259,8 @@ app.build.chapter = function (currentChapterId, appContents) {
 
 
 
-        $(".pageNext").html('NEXT <i class= "icon-chevron-right"></i>');
-        $(".pageBack").html('<i class="icon-chevron-left"></i> BACK');
+        $(".pageNext").html('<i class= "icon-chevron-right"></i>');
+        $(".pageBack").html('<i class="icon-chevron-left"></i>');
 
 
         $("button.pageNext").on("click", function (ev) {

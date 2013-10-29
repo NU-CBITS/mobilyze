@@ -7,7 +7,7 @@
 	<link rel="stylesheet" media="screen" href="style/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" media="screen" href="js/vendor/tourist.css">
 	<link rel="stylesheet" media="screen" href="js/vendor/jquery.qtip.min.css">
-    <link rel="stylesheet" media="screen" href="style/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" media="screen" href="style/bootstrap/css/bootstrap.min.css">
 
 <!-- 	<link rel="stylesheet" type="text/css" href="holo/holo-base-elements.css" />
 	<link rel="stylesheet" type="text/css" href="holo/holo-light-elements.css" />
@@ -23,14 +23,9 @@
 	<script src="js/vendor/lodash.min.js"></script>
 	<script src="style/bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/vendor/md5.js"></script>
-	<script src="js/vendor/jquery-ui.min.js"></script>
-	<!--<script src="js/vendor/imagesloaded.min.js"></script>-->
-
-	<script src="js/vendor/backbone-min.js"></script>
-	<script src="js/vendor/tourist.min.js"></script>
-	<script src="js/vendor/jquery.qtip.min.js"></script>
+  <script src="js/pound.js"></script>
 	<script src="js/cbits.js"></script>
-    <script src="js/onAppStartOrResume.js"></script>
+  <script src="js/onAppStartOrResume.js"></script>
 
 	<script>
   var logo_height = 140; //80 tall + 10 padding
@@ -61,86 +56,86 @@
   //   two: 2
   // };
 
-  STEPS = [{
-    content: 'Lessons teach you skills to help overcome depression. Reading these lessons will take a few minutes. You can come back and read each lesson again if you would like',
-    highlightTarget: false,
-    nextButton: true,
-    target: $('#lessons-widget'),
-    my: 'top center',
-    at: 'top center'
-  },{ 
-  	content: 'The Activity Calendar is a tool to help you track and schedule your activities. You should use the Activity Calendar as much as possible to get the most out of Mobilyze',
-    highlightTarget: false,
-    nextButton: true,
-    target: $('#calendar-widget'),
-    my: 'top center',
-    at: 'top center'
-  },{
-    content: 'The Active Coping tool helps you note things you are avoiding and come up with more useful ways to deal with the situation. Use this tool when you notice an example of avoidance, procrastination, or escapism',
-    highlightTarget: false,
-    nextButton: true,
-    target: $('#traptrac-widget'),
-    my: 'top center',
-    at: 'top center'
-  },{
-    content: 'The Coping Card tool allows you to create notes to send yourself in stressful situations. Writing a coping card now can help you later',
-    highlightTarget: false,
-    nextButton: true,
-    target: $('#copingcard-widget'),
-    my: 'top center',
-    at: 'top center'
-  },{
-    content: 'Mobilyze asks you several questions throughout the day. If you want to check-in at another time you can answer these questions whenever you want',
-    highlightTarget: false,
-    nextButton: true,
-    target: $('#checkin-widget'),
-    my: 'top center',
-    at: 'top center'
-  },{
-    content: 'Mobilyze is collecting a lot of information. The graphs show you some of this information to help you better understand your mood and behaviors',
-    highlightTarget: false,
-    nextButton: true,
-    target: $('#oracle-widget'),
-    my: 'top center',
-    at: 'top center'
-  },{
-    content: 'Labs',
-    highlightTarget: false,
-    nextButton: true,
-    target: $('#labs'),
-    my: 'top center',
-    at: 'top center'
-  },{
-    content: 'Tour',
-    highlightTarget: false,
-    nextButton: true,
-    target: $('#replay-tour'),
-    my: 'top center',
-    at: 'top center'
-  }]
+ //  STEPS = [{
+ //    content: 'Lessons teach you skills to help overcome depression. Reading these lessons will take a few minutes. You can come back and read each lesson again if you would like',
+ //    highlightTarget: false,
+ //    nextButton: true,
+ //    target: $('#lessons-widget'),
+ //    my: 'top center',
+ //    at: 'top center'
+ //  },{ 
+ //  	content: 'The Activity Calendar is a tool to help you track and schedule your activities. You should use the Activity Calendar as much as possible to get the most out of Mobilyze',
+ //    highlightTarget: false,
+ //    nextButton: true,
+ //    target: $('#calendar-widget'),
+ //    my: 'top center',
+ //    at: 'top center'
+ //  },{
+ //    content: 'The Active Coping tool helps you note things you are avoiding and come up with more useful ways to deal with the situation. Use this tool when you notice an example of avoidance, procrastination, or escapism',
+ //    highlightTarget: false,
+ //    nextButton: true,
+ //    target: $('#traptrac-widget'),
+ //    my: 'top center',
+ //    at: 'top center'
+ //  },{
+ //    content: 'The Coping Card tool allows you to create notes to send yourself in stressful situations. Writing a coping card now can help you later',
+ //    highlightTarget: false,
+ //    nextButton: true,
+ //    target: $('#copingcard-widget'),
+ //    my: 'top center',
+ //    at: 'top center'
+ //  },{
+ //    content: 'Mobilyze asks you several questions throughout the day. If you want to check-in at another time you can answer these questions whenever you want',
+ //    highlightTarget: false,
+ //    nextButton: true,
+ //    target: $('#checkin-widget'),
+ //    my: 'top center',
+ //    at: 'top center'
+ //  },{
+ //    content: 'Mobilyze is collecting a lot of information. The graphs show you some of this information to help you better understand your mood and behaviors',
+ //    highlightTarget: false,
+ //    nextButton: true,
+ //    target: $('#oracle-widget'),
+ //    my: 'top center',
+ //    at: 'top center'
+ //  },{
+ //    content: 'Labs',
+ //    highlightTarget: false,
+ //    nextButton: true,
+ //    target: $('#labs'),
+ //    my: 'top center',
+ //    at: 'top center'
+ //  },{
+ //    content: 'Tour',
+ //    highlightTarget: false,
+ //    nextButton: true,
+ //    target: $('#replay-tour'),
+ //    my: 'top center',
+ //    at: 'top center'
+ //  }]
 
-  TOUR = new Tourist.Tour({
-    // stepOptions: STEP_OPTIONS,
-    steps: STEPS,
-    //cancelStep: @finalQuit
-    //successStep: @finalSucceed
-    tipClass: 'QTip',
-    tipOptions:{
-      style: {
-        classes: 'qtip-tour qtip-bootstrap'
-      }
-    }
-  });
-
-
-
-  	if(localStorage["tour_played"] != "true" ){
-
-		localStorage["tour_played"] = true;
-  TOUR.start();
+ //  TOUR = new Tourist.Tour({
+ //    // stepOptions: STEP_OPTIONS,
+ //    steps: STEPS,
+ //    //cancelStep: @finalQuit
+ //    //successStep: @finalSucceed
+ //    tipClass: 'QTip',
+ //    tipOptions:{
+ //      style: {
+ //        classes: 'qtip-tour qtip-bootstrap'
+ //      }
+ //    }
+ //  });
 
 
-	}
+
+ //  	if(localStorage["tour_played"] != "true" ){
+
+	// 	localStorage["tour_played"] = true;
+ //  TOUR.start();
+
+
+	// }
 
   $("#replay-tour").on("click", function(ev){TOUR.start();});
    $("#replay-intro").on("click", function(ev){window.location.href="intro/index.html"});

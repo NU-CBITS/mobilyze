@@ -64,9 +64,7 @@ if (window.filterOnSync == undefined) {
 
                     }
 
-                } else {
-                    debugger;
-                }
+                } 
             };
 
             PurpleRobotClient.transmissionQueue.send();
