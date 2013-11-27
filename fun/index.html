@@ -14,6 +14,8 @@
 
 
   <script src="../js/vendor/jquery-2.0.3.min.js"></script>
+  <script src="funThings.js"></script>
+
   <script src="../js/vendor/date.js"></script>
   <script src="../js/vendor/lodash.min.js"></script>
   <script src="../style/bootstrap/js/bootstrap.min.js"></script>
@@ -53,11 +55,11 @@
 
   }
 
-  fun_things.elements = [];
-  fun_things.elements[0] = {name:"Cats!", requires_connectivity:true, shown_content:"http://www.youtube.com/embed/cbP2N1BQdYc", size_ratio:.61, type:"iframe"};
-  fun_things.elements[1] = {name:"Crazy Llamas", requires_connectivity:true, shown_content:"http://www.youtube.com/embed/iOOAYNwonCc", size_ratio:.61, type:"iframe"};
-  fun_things.elements[2] = {name:"Cats Steal Dog Beds", requires_connectivity:true, shown_content:"http://www.youtube.com/embed/2EEfEsddiUQ", size_ratio:.61, type:"iframe"};
-  fun_things.elements[3] = {name:"Arrrr!", requires_connectivity:false, shown_content:'<p>Long ago, when sailing ships ruled the waves, a captain and his crew were in danger of being boarded by a pirate ship. As the crew became frantic, the captain bellowed to his First Mate, "Bring me my red shirt!". The First Mate quickly retrieved the captain\'s red shirt, which the captain put on and led the crew to battle the pirate boarding party. Although some casualties occurred among the crew, the pirates were repelled.</p><p>Later that day, the lookout screamed that there were two pirate vessels sending boarding parties. The crew cowered in fear, but the captain calm as ever bellowed, "Bring me my red shirt!". The battle was on, and once again the Captain and his crew repelled both boarding parties, although this time more casualties occurred.</p><p>Weary from the battles, the men sat around on deck that night recounting the day\'s occurrences when an ensign looked to the Captain and asked, "Sir, why did you call for your red shirt before the battle?". The Captain, giving the ensign a look that only a captain can give, exhorted, "If I am wounded in battle, the red shirt does not show the wound and thus, you men will continue to fight unafraid". The men sat in silence marveling at the courage of such a man.</p><p>As dawn came the next morning, the lookout screamed that there were pirate ships, 10 of them, all with boarding parties on their way. The men became silent and looked to their Captain for his usual command. The Captain, calm as ever, bellowed, "Bring me my brown pants!!"</p><p><i>courtesy of piratejokes.net</i></p>',  type:"joke"};
+  // fun_things.elements = [];
+  // fun_things.elements[0] = {name:"Cats!", requires_connectivity:true, shown_content:"http://www.youtube.com/embed/cbP2N1BQdYc", size_ratio:.61, type:"iframe"};
+  // fun_things.elements[1] = {name:"Crazy Llamas", requires_connectivity:true, shown_content:"http://www.youtube.com/embed/iOOAYNwonCc", size_ratio:.61, type:"iframe"};
+  // fun_things.elements[2] = {name:"Cats Steal Dog Beds", requires_connectivity:true, shown_content:"http://www.youtube.com/embed/2EEfEsddiUQ", size_ratio:.61, type:"iframe"};
+  // fun_things.elements[3] = {name:"Arrrr!", requires_connectivity:false, shown_content:'<p>Long ago, when sailing ships ruled the waves, a captain and his crew were in danger of being boarded by a pirate ship. As the crew became frantic, the captain bellowed to his First Mate, "Bring me my red shirt!". The First Mate quickly retrieved the captain\'s red shirt, which the captain put on and led the crew to battle the pirate boarding party. Although some casualties occurred among the crew, the pirates were repelled.</p><p>Later that day, the lookout screamed that there were two pirate vessels sending boarding parties. The crew cowered in fear, but the captain calm as ever bellowed, "Bring me my red shirt!". The battle was on, and once again the Captain and his crew repelled both boarding parties, although this time more casualties occurred.</p><p>Weary from the battles, the men sat around on deck that night recounting the day\'s occurrences when an ensign looked to the Captain and asked, "Sir, why did you call for your red shirt before the battle?". The Captain, giving the ensign a look that only a captain can give, exhorted, "If I am wounded in battle, the red shirt does not show the wound and thus, you men will continue to fight unafraid". The men sat in silence marveling at the courage of such a man.</p><p>As dawn came the next morning, the lookout screamed that there were pirate ships, 10 of them, all with boarding parties on their way. The men became silent and looked to their Captain for his usual command. The Captain, calm as ever, bellowed, "Bring me my brown pants!!"</p><p><i>courtesy of piratejokes.net</i></p>',  type:"joke"};
 
 
   $(document).ready(function(ev){
@@ -76,7 +78,7 @@
     var randIndex = Math.floor((Math.random()*filtered_fun_things.length));
     $("#fun_thing").html(fun_things.views.mainView(filtered_fun_things[randIndex]).view);
     $("#rating").html('<h3>How much did you like this?</h3><input id="rating_slider" name="rating_slider" />');
-    $("#rating_slider").mobiscroll().rating({theme:"android-ics light", display:"inline"});
+    $("#rating_slider").mobiscroll().rating({theme:"android-ics light", display:"modal"});
 
     $("#flipper").on("click", function(ev){
           randIndex = Math.floor((Math.random()*filtered_fun_things.length));

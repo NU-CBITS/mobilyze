@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	<title>Mobilyze</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" media="screen" href="style/cbits.css">
-	<link rel="stylesheet" media="screen" href="style/font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" media="screen" href="js/vendor/tourist.css">
-	<link rel="stylesheet" media="screen" href="js/vendor/jquery.qtip.min.css">
+        <head>
+        <title>Mobilyze</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" media="screen" href="style/cbits.css">
+        <link rel="stylesheet" media="screen" href="style/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" media="screen" href="js/vendor/tourist.css">
+        <link rel="stylesheet" media="screen" href="js/vendor/jquery.qtip.min.css">
   <link rel="stylesheet" media="screen" href="style/bootstrap/css/bootstrap.min.css">
 
-<!-- 	<link rel="stylesheet" type="text/css" href="holo/holo-base-elements.css" />
-	<link rel="stylesheet" type="text/css" href="holo/holo-light-elements.css" />
-	<link rel="stylesheet" type="text/css" href="holo/holo-base-widgets.css" />
-	<link rel="stylesheet" type="text/css" href="holo/holo-light-widgets.css" /> -->
-	<style>
+<!--         <link rel="stylesheet" type="text/css" href="holo/holo-base-elements.css" />
+        <link rel="stylesheet" type="text/css" href="holo/holo-light-elements.css" />
+        <link rel="stylesheet" type="text/css" href="holo/holo-base-widgets.css" />
+        <link rel="stylesheet" type="text/css" href="holo/holo-light-widgets.css" /> -->
+        <style>
   html, body{text-align: center;padding:0;margin:0;}
   #main-container{width:95%;margin-left:auto; margin-right:auto;}
 
 </style>
-	<script src="js/vendor/jquery-2.0.3.min.js"></script>
-	<script src="js/vendor/date.js"></script>
-	<script src="js/vendor/lodash.min.js"></script>
-	<script src="style/bootstrap/js/bootstrap.min.js"></script>
-	<script src="js/vendor/md5.js"></script>
+        <script src="js/vendor/jquery-2.0.3.min.js"></script>
+        <script src="js/vendor/date.js"></script>
+        <script src="js/vendor/lodash.min.js"></script>
+        <script src="style/bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/vendor/md5.js"></script>
   <script src="js/pound.js"></script>
-	<script src="js/cbits.js"></script>
+        <script src="js/cbits.js"></script>
   <script src="js/onAppStartOrResume.js"></script>
 
-	<script>
+        <script>
   var logo_height = 140; //80 tall + 10 padding
   var widget_margin_bottom = 10;
 
   
-	$(document).ready(function(){
+        $(document).ready(function(){
 
   var mainContainer = $("#main-container");  
   mainContainer.html(user.sub.widget.menu.view(user.sub.apps));
@@ -43,13 +43,13 @@
   $(".widget").css("marginBottom",widget_margin_bottom);
   $(".widget").height((height_of_widget_nav - (widget_margin_bottom*num_widgets_tall*2.5))/num_widgets_tall);
 
-	// if(localStorage["intro_animation_played"] != "true" ){
+        // if(localStorage["intro_animation_played"] != "true" ){
 
-	// 	localStorage["intro_animation_played"] = true;
-	// 	window.location.href = "intro/index.html";
+        //         localStorage["intro_animation_played"] = true;
+        //         window.location.href = "intro/index.html";
 
 
-	// }
+        // }
 
   // STEP_OPTIONS = {
   //   one: 1,
@@ -64,7 +64,7 @@
  //    my: 'top center',
  //    at: 'top center'
  //  },{ 
- //  	content: 'The Activity Calendar is a tool to help you track and schedule your activities. You should use the Activity Calendar as much as possible to get the most out of Mobilyze',
+ //          content: 'The Activity Calendar is a tool to help you track and schedule your activities. You should use the Activity Calendar as much as possible to get the most out of Mobilyze',
  //    highlightTarget: false,
  //    nextButton: true,
  //    target: $('#calendar-widget'),
@@ -129,13 +129,13 @@
 
 
 
- //  	if(localStorage["tour_played"] != "true" ){
+ //          if(localStorage["tour_played"] != "true" ){
 
-	// 	localStorage["tour_played"] = true;
+        //         localStorage["tour_played"] = true;
  //  TOUR.start();
 
 
-	// }
+        // }
 
   $("#replay-tour").on("click", function(ev){TOUR.start();});
    $("#replay-intro").on("click", function(ev){window.location.href="intro/index.html"});
@@ -143,10 +143,10 @@
 });
 
 
-	</script>
-	</head>
+        </script>
+        </head>
 
-	<body>
+        <body>
 <img src="logo.png" id="main-logo" style="height:80px; padding-top:10px;">
 <div id="main-container">
 

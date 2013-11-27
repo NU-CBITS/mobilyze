@@ -10,6 +10,8 @@
     	<link rel="stylesheet" media="screen" href="../style/font-awesome/css/font-awesome.min.css">
     	<link rel="stylesheet" media="screen" href="../style/cbits.css">
 	<link rel="stylesheet" media="screen" href="../style/bootstrap/css/bootstrap.min.css">
+	    <link href="../lib/mobiscroll/css/mobiscroll.custom-2.8.2.min.css" rel="stylesheet" type="text/css" />   
+
 <!-- 		    <link rel="stylesheet" type="text/css" href="../holo/holo-base-elements.css" />
     <link rel="stylesheet" type="text/css" href="../holo/holo-light-elements.css" />
     <link rel="stylesheet" type="text/css" href="../holo/holo-base-widgets.css" />
@@ -18,6 +20,8 @@
 
 
 	<script src="../js/vendor/jquery-2.0.3.min.js"></script>
+	        <script src="../lib/mobiscroll/js/mobiscroll.custom-2.8.2.min.js" type="text/javascript"></script>
+
   <script src="../js/vendor/date.js"></script>
   <script src="../js/vendor/lodash.min.js"></script>
 	<script src="../js/vendor/async.js"></script>
@@ -25,8 +29,6 @@
 	<script src="../js/cbits.js"></script>
 	<script src="../js/pound.js"></script>
 	<script src="../js/vendor/backbone-min.js"></script>
-	<script src="../js/vendor/tourist.min.js"></script>
-	<script src="../js/vendor/jquery.qtip.min.js"></script>
 
 	<script type="text/javascript">
 		var coping_cards = {};
@@ -60,7 +62,34 @@
 
 
 		$(document).ready(function() {
-		
+		  
+
+		if (pound.find("go_to") !="undefined"){
+		if (pound.find("go_to")[pound.find("go_to").length-1].action == "coping_card" && pound.find("go_to")[pound.find("go_to").length-1].completed != true ){
+
+			var go_to_object = pound.find("go_to")[pound.find("go_to").length-1];
+			
+			switch (go_to_object.source){
+
+			default:
+			$(".alert").html("<b>Great!</b><Br/>You're adding a coping card from the Activity Tracker!");
+
+			$("input[name='date']").mobiscroll().date();
+            $("input[name='time']").mobiscroll().time();
+
+			$("textarea[name='event_name']").html(go_to_object.load.name);
+			$("input[name='time']").attr('value',go_to_object.load.time);
+			$("input[name='date']").attr('value',go_to_object.load.date);
+
+			$("#copingHome").hide();
+			$("#coping-card-create").removeClass("hide");
+
+			pound.update("go_to",{id:go_to_object.id,completed:true});
+			break;
+
+
+			}
+		}}
 
 		if (coping_cards.contents.length > 0 ){
 
@@ -89,7 +118,8 @@
 
 
 		$("#createACard").on("click",function(){
-
+			$("input[name='date']").mobiscroll().date();
+            $("input[name='time']").mobiscroll().time();
 			$("#copingHome").hide();
 			$("#coping-card-create").removeClass("hide");
 
@@ -97,8 +127,14 @@
 
 
 		$("#coping-card-create > form").on("submit",function(ev){
+			
+
+			var coping_card_data = $(this).serializeObject();
+
+
 			ev.preventDefault();
-			var copingCard = $(this).serializeObject();
+			if(coping_card_data.date != "" && coping_card_data.event_name != "" && coping_card_data.time != "" && coping_card_data.coping_reminder != ""){
+			var copingCard = coping_card_data;
 			pound.save("coping_cards", copingCard);
 			$("#notification").addClass("alert");
 			$("#notification").removeClass("alert-info");
@@ -110,7 +146,10 @@
 
 			// })
 			$("#coping-card-create").addClass("hide");
-			$("#copingHome").show();
+			$("#copingHome").show();}
+			else{
+				alert("You must fill in all fields to continue!");
+			}
 
 		});
 
@@ -146,19 +185,18 @@
 			<h2><a href="index.html"><i class="icon-chevron-left"></i></a> Create a Coping Card</h2>
 
 			<div class="alert alert-info"><b>Remember: This is all about planning for the future.</b><br/> It's often easier to come up with some ideas ahead of time when you're not as stressed or anxious.</div>
-			<h3>If you can:</h3>
-			<ol><li>Think of an important event or time that is stressful or that you often avoid.</li><li>Then come up with a way you can cope with it. </li></ol>
+			<h3>If you can--</h3>
+			<ul><li>First, think of an important situation or event that is stressful or that you often avoid.</li><li>Second, come up with a way you can cope with it. </li></ul>
 
-			<form class="form-group">	
-			<label for="date">When is the next time this might happen?</label><br/>
-			<input type="date" name="date">
-			<input type="time" name="time">
+			<form class="form-group">
+			<label for="event_name">What is the important situation or event?<br/>
+			<textarea name="event_name" placeholder="Be as specific as possible." rows="2" cols="30"></textarea></label><br/><br/>
+			<label for="date">When would you like your Coping Card reminder?</label><br/>
+			<input name="date" placeholder="date">
+			<input name="time" placeholder="time">
 			<br/><br/>
-			<label for="event_name">Write something you'll remember!<br/>
-			<textarea name="event_name" placeholder="What is that important event or time?" rows="2" cols="30"></textarea></label><br/><br/>
-
 			<label for="coping_reminder">What do you want to remind yourself of when this happens? (<a href="#" id="reminder_help">quick tip</a>)<br/>
-			<textarea name="coping_reminder" placeholder="What do you what to think or do when this happens?"  rows="3" cols="30"></textarea></label><br/><br/>
+			<textarea name="coping_reminder" placeholder="Specifically what do you want to think or do when this happens?"  rows="3" cols="30"></textarea></label><br/><br/>
 			<button type="submit" class="btn btn-success" id="saveButton">Save Your Coping Card</button>
 			</form>
 

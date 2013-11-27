@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../holo/holo-base-widgets.css" />
     <link rel="stylesheet" type="text/css" href="../holo/holo-light-widgets.css" /> -->
     <link rel="stylesheet" media="screen" href="../style/font-awesome/css/font-awesome.min.css">
-    <link href="../style/mobiscroll.custom-2.7.2.min.css" rel="stylesheet" type="text/css" />   
+    <link href="../lib/mobiscroll/css/mobiscroll.custom-2.8.2.min.css" rel="stylesheet" type="text/css" />   
     <link rel="stylesheet" media="screen" href="../style/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" media="screen" href="../style/cbits.css">
     <link rel="stylesheet" media="screen" href="../style/slider.css">
@@ -23,7 +23,7 @@
     <script src="../js/pound.js" type="text/javascript"></script>
     <script src="../js/cbits.js" type="text/javascript"></script>
     <script src="../js/vendor/underscore-min.js" type="text/javascript"></script>
-    <script src="../js/vendor/mobiscroll.custom-2.7.2.min.js" type="text/javascript"></script>
+    <script src="../lib/mobiscroll/js/mobiscroll.custom-2.8.2.min.js" type="text/javascript"></script>
     <script src="../js/vendor/dateformat.js" type="text/javascript"></script>
     <script src="../js/vendor/bootstrap-slider.js" type="text/javascript"></script>
 
@@ -58,37 +58,6 @@
 
 
 
-  <script type="text/javascript">
-
-
-  var copingCard = {};
-  copingCard.form = {};
-  copingCard.form.render =function(event) {
-    return ""
-  };
-  copingCard.form.template =function(event) {
-    
-    var html = "";
-    var meta_content = event.meta_content;
-    var coping_reasons = ["Anxiety","Fear","Social Nervousness","Guilt"];
-    var checked = "";
-
-    html += "<label for='coping_card_reason'>What are you trying to cope with?</label><br/>";
-    html += "<select name='coping_card_reason'><option value=''>pick a reason</option>";
-    _.each(coping_reasons,function(el){
-        if (el == event.coping_card_reason){ checked = "selected='selected'";} else {checked="";}
-        html += "<option value='" + el +"'" +checked +  "  >" + el +"</option>";
-
-    });
-    html += "</select><br/>";
-    html += "<label for='coping_card_message'>What do you want to remember when this event happens?</label><br/>";
-    html += "<textarea name='coping_card_message' placeholder=''>" + event.coping_card_message +"</textarea>";
-
-
-    return html
-  };
-
-  </script>
 
 
     <script type="text/javascript">
@@ -105,19 +74,19 @@
 
     events.filters = {};
     events.filters.days = function(event_contents){
-    var list_of_dates = events.filters.dates(event_contents);
-    var list_of_days = [];
-    _.each(list_of_dates,function(el){
-        var new_date = new Date(el);
-        list_of_days.push(new_date.getMonth() + "/" +new_date.getDate());
-    });
+        var list_of_dates = events.filters.dates(event_contents);
+        var list_of_days = [];
+        _.each(list_of_dates,function(el){
+            var new_date = new Date(el);
+            list_of_days.push(new_date.getMonth() + "/" +new_date.getDate());
+        });
         return list_of_days
     };
 
     events.filters.dates = function(event_contents){
         var list_of_dates = [];
         var current_date = new Date ();
-        _.each(_.pluck(event_contents,"datetime"), function(el){
+        _.each(_.pluck(event_contents,"date"), function(el){
             list_of_dates.push(el);
         });
         return list_of_dates
@@ -154,13 +123,19 @@ events.calendar.render = function() {
 
         },
         onDayChange:function(day,inst){
-            console.log(inst);
-            events.list.render(events.contents,inst.getDate().getMonth(),inst.getDate().getFullYear());
+            console.log(inst.getDate());
+            var today = new Date(day.date);
+
+            console.log(today.toJSON().toString().substring(0,10));
+            console.log(events.contents);
+
+            events.list.render(events.contents);
         }, 
         onEventSelect: function(){}
     }); 
 
     $("#event_list").css("height",$(document).height()-$("#calendar").height()-3);
+    debugger;
     events.list.render(events.contents);
     $("#home").show("slow");
 
@@ -169,9 +144,9 @@ events.calendar.render = function() {
 
 
 
-events.list.render = function(events_contents, month, year){
-    var list_of_events = "<li id='add-event'>" + "<h3><i class='icon-plus'></i> Add a New Event</h3>"+ "</li>";
+events.list.render = function(events_contents){
 
+    var list_of_events = "<li id='add-event'>" + "<h3><i class='icon-plus'></i> Add a New Event</h3>"+ "</li>";
     var events_contents = events_contents || events.contents;
     _.each(events_contents, function(el){
         list_of_events += events.list.template(el);
@@ -220,20 +195,27 @@ events.form.render = function(id,form_type){
     $("#events_calendar").hide("slow");
 
     $("#event_form").html(events.form.template(id,form_type));
+    $("#date").mobiscroll().date();
+    $("#time").mobiscroll().time();
+    $(".why_coping_card").on("click",function(ev){
+        $.modal(why_coping_card);
+
+    });
 
 
-
-    // $("input[type=range]").slider({tooltip:"show"});
-    //     $(".slider.slider-horizontal").css("width","160");
+    $("input[type=range]").slider({tooltip:"show"});
+    $(".slider.slider-horizontal").css("width","160");
 
     $("#event_form").show("slow");
 
     $(".show_coping_options").on("click",function(ev){
         if ($(this).val() == "yes"){
-            $("#coping_card_options").show();
+
+            $("#submit").html("<i class='icon-check-sign'></i> Save Activity and Create Coping Card");
         }
         else{
-            $("#coping_card_options").hide();
+
+            $("#submit").html("<i class='icon-check-sign'></i> Save Activity");
         }
     });
 
@@ -245,17 +227,29 @@ events.form.render = function(id,form_type){
     $("#event_form > form").on("submit",function(ev){
         ev.stopPropagation();
         ev.preventDefault();
-        // var event_to_add = events.model;
 
         console.log($(this).serializeObject());
+
+        if($(this).serializeObject().date != "" && $(this).serializeObject().time != "" && $(this).serializeObject().name != ""){
+
         pound.save("activity_tracker",$(this).serializeObject());
         events.contents = pound.find("activity_tracker");
  
-        //add event to pound
-        //refresh mobiscroll calendar from pound database
-        //add triggers for coping cards added
+        if($(this).serializeObject().coping_card_created == 'yes'){
+
+        pound.save("go_to",{action:"coping_card", source:"activity_tracker", load:$(this).serializeObject()});
+        window.location.href="../copingcard/index.html";
+        }
+        else{
         $("#event_form").hide("slow");
         events.calendar.render();
+        $("#events_calendar").show();}}
+        else{
+            alert("Make sure to fill in an event name, date, and time!");
+        }
+
+
+
     });
 
     // console.log(date,id);
@@ -332,34 +326,33 @@ events.form.template = function(id,form_type){
     html += "<label for='name'>" + form_format.event_name +"</label><br/>";
     html += "<input type='text' name='name' placeholder='"+ form_format.recommendation +"' value ='"+ event.name +"'/><br/>";
     html += "<label for='date'>What day is it on?<br/>";
-    html += "<input type='date' name='date' value ='"+ event.date +"'/></label> ";
-    html += "<label for='time'>What time is it at?<br/><input type='time' name='time' value ='"+event.time +"'/></label><br/>";
+    html += "<input type='date' name='date' id='date' value ='"+ event.date +"'/></label> ";
+    html += "<label for='time'>What time is it at?<br/><input type='time' id='time' name='time' value ='"+event.time +"'/></label><br/>";
 
 
     if (form_type != review){
-    html += "<label for='pleasure_predicted'>How much fun do you think it will be?</label><br/>";
-    html += "<table><tr><td class='ends'>Not very much</td><td class='middle'><input type='range' name='pleasure_predicted' value ='"+ event.pleasure_predicted+"'/></td><td class='ends'>A lot</td></tr></table>";
-    html += "<label for='accomplishment_predicted'>How much do you feel like you'll get something out of it?</label><br/>";
-    html += "<table><tr><td class='ends'>Not very much</td><td class='middle'><input type='range' name='accomplishment_predicted' value ='"+ event.accomplishment_predicted+"'/></td><td class='ends'>A lot</td></tr></table>";
+    html += "<label for='pleasure_predicted'>How much pleasure do you think you will experience?</label><br/>";
+    html += "<table><tr><td class='ends'>0<br/>Not very much</td><td class='middle'><input type='range' name='pleasure_predicted' value ='"+ event.pleasure_predicted+"'/></td><td class='ends'>10<br/>A lot</td></tr></table>";
+    html += "<label for='accomplishment_predicted'>How much accomplishment do you think you will feel?</label><br/>";
+    html += "<table><tr><td class='ends'>0<br/>Not very much</td><td class='middle'><input type='range' name='accomplishment_predicted' value ='"+ event.accomplishment_predicted+"'/></td><td class='ends'>10<br/>A lot</td></tr></table>";
     html += "<input type='hidden' name='accomplishment_actual' value = ''><input type='hidden' name='pleasure_actual' value = ''>";
     }
     else {
         html += "<h4>You said it was going to be " + event.pleasure_predicted+ " / 100 fun...";
         html += "<label for='pleasure_predicted'>How much fun was it?</label><br/>";
-    html += "<table><tr><td class='ends'>Not very much</td><td class='middle'><input type='range' name='pleasure_predicted' value ='"+ event.pleasure_predicted+"'/></td><td class='ends'>A lot</td></tr></table>";
+    html += "<table><tr><td class='ends'>0<br/>Not very much</td><td class='middle'><input type='range' name='pleasure_predicted' value ='"+ event.pleasure_predicted+"'/></td><td class='ends'>10<br/>A lot</td></tr></table>";
      html += "<h4>You said you were going to get " + event.accomplishment_predicted+ " / 100 out of it...";
     html += "<label for='accomplishment_predicted'>How much did you actually get something out of it?</label><br/>";
-    html += "<table><tr><td class='ends'>Not very much</td><td class='middle'><input type='range' name='accomplishment_predicted' value ='"+ event.accomplishment_predicted+"'/></td><td class='ends'>A lot</td></tr></table>";
+    html += "<table><tr><td class='ends'>0 <br/> Not very much</td><td class='middle'><input type='range' name='accomplishment_predicted' value ='"+ event.accomplishment_predicted+"'/></td><td class='ends'>10<br/>A lot</td></tr></table>";
     html += "<input type='hidden' name='accomplishment_predicted' value = '" + event.accomplishment_predicted+ "'><input type='hidden' name='pleasure_predicted' value = '"+ event.pleasure_predicted+"'>";
     }
     
-    html += "<label for='coping_card_created'"+form_format.coping_classes +">Are you worried about this event?</label><br/>";
-    html += "YES <input name='coping_card_created' class='show_coping_options' type='radio' value='yes' " + copingCardExists("yes",event.coping_card_created) + "/>";
-    html += "NO <input name='coping_card_created' class='show_coping_options' type='radio' value='no' " + copingCardExists("no",event.coping_card_created) + "/>";
-    html += "<div id='coping_card_options' class='default_hidden'>"+ copingCard.form.template(event) +"</div>";
+    html += "<label for='coping_card_created'"+form_format.coping_classes +">Do you want to make a coping card?</label> (<a href='#' class='why_coping_card'>Why would I want to do this?</a>)<br/>";
+    html += "<div class='radio'><label class='btn btn-success radio-inline wide'>YES <input name='coping_card_created' class='show_coping_options' type='radio' value='yes' " + copingCardExists("yes",event.coping_card_created) + "/></label></div>";
+    html += "<div class='radio'><label class='btn btn-danger radio-inline wide'>NO <input name='coping_card_created' class='show_coping_options' type='radio' value='no' " + copingCardExists("no",event.coping_card_created) + "/></label></div>";
 
 
-    html += "<br/><br/><button type='submit' class='"+ form_format.submit_classes +"'>"+  form_format.submit_icon+ form_format.submit_text + "</button>"
+    html += "<br/><button type='submit' id='submit' class='"+ form_format.submit_classes +"'>"+  form_format.submit_icon+ form_format.submit_text + "</button>"
 
     return html + "</form>"
 }
@@ -372,35 +365,50 @@ if (localStorage["events_contents"] != undefined){
 
  var page_description = "<div><p>The Activity Tracker can be used in several different ways including monitoring your activities, measuring and analyzing fun and accomplishment, monitoring and measuring negative moods, scheduling positive activities or overwhelming tasks, and checking predictions.</p><p>Filling out the Activity Tracker can help you see how you’re spending your time and uncover the activities that give you the most pleasure and sense of accomplishment.</p></div>";
 
+var why_coping_card = "This can help you feel better about something that you know you're going to need some help with."
 
 
 $(function(){
+
+    captureButtonPresses();
 
 
    // on initial page render 
    $("#show_ba").on("click",function(){
         $.modal(page_description);
+            captureButtonPresses();
+
    });
 
    $("#go_to_events_calendar").on("click",function(ev){
         $("nav#nav").addClass("hide");
         events.calendar.render();
+            captureButtonPresses();
+
    });
 
    $("#review").on("click",function(ev){
         $("nav#nav").addClass("hide");
         events.calendar.render();
         $("#calendar").hide();
+        $("#event_list").css("height",$(document).height()-200);
+            captureButtonPresses();
+
+
    });
 
    $("#schedule").on("click",function(ev){
         $("nav#nav").addClass("hide");
 
     events.form.render (guid(),"plan");
+        captureButtonPresses();
+
    });
    $("#monitor_now").on("click",function(ev){
     $("nav#nav").addClass("hide");
         events.form.render (guid(),"review");
+            captureButtonPresses();
+
    });
 
 });
@@ -412,7 +420,7 @@ $(function(){
 <div class="col-md-1"></div>
 <div class="col-md-10">
     <nav id="nav"><h2 style="margin-top:.5em;"><a href="../index.html"><i class="icon-home"></i></a> Activity Tracker </h2>
-    <h4>This tool helps you to become aware of how what you do affects how you feel<br/> (<a href="#" id="show_ba">click to learn more</a>)</h4>
+    <h4>Become aware of how what you do affects how you feel...<br/> (<a href="#" id="show_ba">click to learn more</a>)</h4>
 
     <div class="alert alert-info"><i class="icon-exclamation-sign"></i> <b>You haven't logged any events yet!</b> <br/></div>
 

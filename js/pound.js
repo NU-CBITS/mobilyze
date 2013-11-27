@@ -1,5 +1,18 @@
 var pound = {};
 var p = pound;
+
+var purpleRobotAvailable = purpleRobotAvailable || true;
+
+var emitPoundToPurpleRobot = function(key,action,object){
+
+    if (purpleRobotAvailable == true){
+
+    var object_to_add = object || {};
+    object_to_add.action = action || ""
+    PurpleRobotClient.emitReading(key, object_to_add,'addToQueue');
+    }
+}
+
 //pound.insert(key, object)
 //adds to or CREATES a store
 //key: name of thing to store
@@ -29,7 +42,7 @@ var collection = [];
         localStorage[key] = JSON.stringify(collection);
         pound.add("pound",key);
     }
-
+emitPoundToPurpleRobot(key,'add',object);
 return {added:object};
 };
 
@@ -78,7 +91,7 @@ var collection = [];
     }
 
     localStorage[key] = JSON.stringify(collection);
-
+    emitPoundToPurpleRobot(key,'save',object);
     return {saved:object};
 };
 
@@ -105,6 +118,7 @@ var collection = JSON.parse(localStorage[key]);
         }
     });
     localStorage[key] = JSON.stringify(collection);
+    emitPoundToPurpleRobot(key,'update',object);
 
     return {updated:object};
 }
@@ -144,11 +158,14 @@ pound.delete = function(key,id){
         _.each(collection, function(el, idx){
             if (el.id == id){
                 object_to_delete = collection[idx];
+                emitPoundToPurpleRobot(key,'delete',collection[idx]);
+
                 collection[idx] = false;
             };
         });
 
     localStorage[key] = JSON.stringify(_.compact(collection));
+
 
     return {deleted:object_to_delete};
 }

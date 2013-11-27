@@ -317,7 +317,7 @@ app.actions.setPage = function (pageContents) {
             main_contents = main_contents + "<h1>" + headline + "</h1>";
         }
 
-        main_contents = main_contents + contents;
+        main_contents = main_contents + contents.replace(server_cdn,local_static_assets);;
         return main_contents;
     }
 
