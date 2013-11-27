@@ -64,7 +64,7 @@
 		$(document).ready(function() {
 		  
 
-		if (pound.find("go_to") !="undefined"){
+		if (pound.find("go_to") != "undefined" && pound.find("go_to").length != 0 ){
 		if (pound.find("go_to")[pound.find("go_to").length-1].action == "coping_card" && pound.find("go_to")[pound.find("go_to").length-1].completed != true ){
 
 			var go_to_object = pound.find("go_to")[pound.find("go_to").length-1];
