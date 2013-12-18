@@ -114,7 +114,6 @@
 	
 
 $(document).ready(function() {
-	 $("input[type=range]").slider({tooltip:"show"});
 
 
 
@@ -134,6 +133,7 @@ $(document).ready(function() {
 
 		captureButtonPresses();
 
+	$("input[name=mood]").on("change", function(ev){$("#currentValue").html(ev.currentTarget.value);});
 
 });
 
@@ -157,7 +157,10 @@ $(document).ready(function() {
 <label for="mood">On a scale of 0 to 10, what is your mood right now?</label>
 
 <br/>
-<table><tr><td class="ends">0<br/>Bad</td><td><input type="range" min="0" max="10" name="mood"></td><td class="ends">10<Br/>Good</td></tr></table>
+<table>
+
+<tr><td></td><th id="currentValue" style="text-align:center; font-size:1.3em"><br/></th><td></td></tr>
+	<tr><td class="ends">0<br/>Bad</td><td><input type="range" min="0" max="10" name="mood"></td><td class="ends">10<Br/>Good</td></tr></table>
 <br/>
 <button type="submit" class="btn btn-primary">Save Your Mood</button>
 </form>

@@ -14,11 +14,6 @@
 
         <link rel="stylesheet" media="screen" href="../style/font-awesome/css/font-awesome.min.css">
  <link rel="stylesheet" media="screen" href="../style/cbits.css">
-   <!--      <link rel="stylesheet" type="text/css" href="../holo/holo-base-elements.css" />
-    <link rel="stylesheet" type="text/css" href="../holo/holo-light-elements.css" />
-    <link rel="stylesheet" type="text/css" href="../holo/holo-base-widgets.css" />
-    <link rel="stylesheet" type="text/css" href="../holo/holo-light-widgets.css" />
-     -->
 
 
   <script src="../js/vendor/jquery-2.0.3.min.js"></script>
@@ -106,6 +101,7 @@
 
 
     </style>
+      <link href="lib/assets/stylesheets/application.css" media="screen" rel="stylesheet">
 
     <script>
     try {
@@ -132,24 +128,28 @@
 
 <body>
 
-    <div class="row-fluid">
-        <div class="col-md-12 mainContent">
+     <div class="row-fluid mainContainer">
+        <div class="col-md-1 col-xs-1 col-sm-1">
         </div>
+        <div class="col-md-10 col-xs-10 col-sm-10 mainContent">
+        </div>
+        <div class="col-md-1 col-xs-1 col-sm-10">
+        </div>
+      
     </div>
-
-    <div class="bottom">
-        <div style="width:33%; float:left;">
-            <button class="pageBack btn btn-primary"></button>
+    
+    <div id="bottom-nav" class="row-fluid">
+        <div class="col-md-2 col-xs-4 col-sm-4" id="bottom-left">
+            <button class="pageBack btn btn-info"></button>
         </div>
 
-        <div style="width:33%; float:left;">
+        <div class="col-md-8 col-xs-4 col-sm-4" id="bottom-middle">
+            <div class="position-indicator"></div>
             <div class="currentSlideCount"></div>
-            <div class="progress progress-striped chapterProgress">
-                <div class="bar chapterProgressBar" ></div>
-            </div>
+
         </div>
 
-        <div style="width:33%; float:left;">
+        <div class="col-md-2 col-xs-4 col-sm-4" id="bottom-right">
             <button class="pageNext btn btn-primary"></button>
         </div>
     </div>

@@ -295,15 +295,30 @@ app.build.chapter = function (currentChapterId, appContents) {
     }
 };
 
-app.build.chapterProgressBar = function (position, total) {
-    $(".chapterProgressBar").width((position / total) * 100 + "%");
+app.build.chapterProgressBar = function (position,total){
+
+    var dots = "";
+
+    for (var i=1;i<total+1;i++)
+    { 
+   
+    if (i <= position){
+    dots += '<i class="icon-circle"></i>'
+    }
+    else {
+    dots += '<i class="icon-circle-blank"></i>'   
+    }
+
+
+    }
+
+    $(".position-indicator").html(dots);
+     
 }
 
-
-
 app.templates = {};
-app.templates.fullPage = '<div class="span12 mainContent"></div>';
-app.templates.threePanel = '<div class="span7 mainContent"></div><div class="span5"><div class="row-fluid"><div class="span12 topRight"></div><div class="row-fluid"><div class="span12 bottomRight"></div></div></div></div>';
+app.templates.fullPage = '<div class="mainContent"></div>';
+// app.templates.threePanel = '<div class="mainContent"></div><div ><div class="row-fluid"><div class="span12 topRight"></div><div class="row-fluid"><div class="span12 bottomRight"></div></div></div></div>';
 
 app.actions = {};
 
